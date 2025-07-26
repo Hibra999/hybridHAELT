@@ -8,11 +8,11 @@ warnings.filterwarnings("ignore")
 
 # Configuración
 OPTIMIZE_HYPERPARAMS = False  
-SYMBOL = 'SOL/USDT'  # o 'SOL/USDT'
+SYMBOL = 'EUR/USDT'  # o 'SOL/USDT'
 
 # 1. Obtener datos
 print("1. Fetching data...")
-data = scrape_candles_to_dataframe('binance', 3, SYMBOL, '1h', '2025-03-01T00:00:00Z', 1000)
+data = scrape_candles_to_dataframe('binance', 3, SYMBOL, '1h', '2025-01-01T00:00:00Z', 1000)
 print(f"Total data: {len(data)}")
 
 # 2. Crear features
@@ -20,16 +20,14 @@ print("\n2. Creating features...")
 df = create_robust_features(data)
 
 # 3. Preparar datos
-forecaster = ForecasterDualModel(sequence_length=168, forecast_horizon=72)
+forecaster = ForecasterDualModel(sequence_length=168, forecast_horizon=1)
 X, y = forecaster.prepare_data(df)
 
 print("\n4. Splitting data...")
-months_test = 1  # Número de meses para test
-months_val = 1   # Número de meses para validación
 
 # Calcular índices
-test_size = 730 * months_test  # 730 horas por mes
-val_size = 730 * months_val
+test_size = 730 #12 horas o 730 un mes
+val_size = 730
 
 X_train = X[:-test_size-val_size]
 y_train = y[:-test_size-val_size]

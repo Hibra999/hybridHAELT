@@ -1432,7 +1432,7 @@ def create_robust_features(data):
             ('volatility_stop', lambda: stock_ind.get_volatility_stop(quotes, lookback_periods=20, multiplier=3)),
             
             # Price indicators - corrected
-            ('rolling_pivots',  lambda: stock_ind.get_rolling_pivots(quotes, 11, 0) if PeriodSize else None)
+            #('rolling_pivots',  lambda: stock_ind.get_rolling_pivots(quotes, 11, 0) if PeriodSize else None)
             
             # Pattern recognition - with fallback parameter attempts
             ('doji', lambda: stock_ind.get_doji(quotes, max_price_change_percent=0.1)),
