@@ -1,0 +1,58 @@
+# Core Data Science Libraries
+numpy
+pandas
+scipy
+
+# Machine Learning
+scikit-learn
+lightgbm
+
+# Deep Learning
+tensorflow
+keras
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Financial Data
+yfinance
+ccxt
+
+# Hyperparameter Optimization
+optuna
+
+# Data Processing
+joblib
+xlrd
+openpyxl
+
+
+# Utilities
+tqdm
+python-dateutil
+pytz
+
+# Optional: GPU Support (uncomment if using GPU)
+# tensorflow-gpu>=2.10.0
+
+# Development Dependencies (optional)
+# jupyter>=1.0.0
+# notebook>=6.4.0
+# ipykernel>=6.0.0
+
+# Data Validation
+# dataclasses-json>=0.5.7
+# pydantic>=1.8.0
+
+# Networking (for API calls)
+requests
+urllib3
+
+# Memory optimization
+psutil
+flaml          
+pytorch-tabnet
+xgboost 
+catboost
