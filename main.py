@@ -9,14 +9,14 @@ warnings.filterwarnings("ignore")
 
 # Configuration
 OPTIMIZE_HYPERPARAMS = False  
-SYMBOL = 'EUR/USDT'  # or 'BTC/USDT'
+SYMBOL = 'SOL/USDT'  # or 'BTC/USDT'
 USE_ENHANCED_MODEL = True  # Toggle between original and enhanced model
 
 
 def main():
     # 1. Fetch data
     print("1. Fetching data...")
-    data = scrape_candles_to_dataframe('binance', 3, SYMBOL, '1h', '2025-03-01T00:00:00Z', 1000)
+    data = scrape_candles_to_dataframe('binance', 3, SYMBOL, '1h', '2025-01-01T00:00:00Z', 1000)
     print(f"Total data: {len(data)}")
 
     # 2. Create features
@@ -48,29 +48,24 @@ def main():
 
     # 5. Train models
     print("\n5. Training models...")
-    if USE_ENHANCED_MODEL:
-        model.train(X_train, y_train, X_val, y_val)
-    else:
-        model.train_models(X_train, y_train, X_val, y_val, optimize_params=OPTIMIZE_HYPERPARAMS)
+
+    model.train(X_train, y_train, X_val, y_val)
+
 
     # 6. Run simulation
     print("\n6. Running real-time simulation...")
     n_simulation_steps = len(X_test) - model.sequence_length
     test_df = df.iloc[-test_size:].copy()
 
-    if USE_ENHANCED_MODEL:
-        simulation_result = simulate_enhanced_real_time_forecast(
+
+    simulation_result = simulate_enhanced_real_time_forecast(
             model, 
             test_df, 
             model.scalers['features'], 
             model.scalers['target'], 
             forecast_horizon=n_simulation_steps,  # Correct parameter name
             update_interval=10
-        )
-    else:
-        simulation_result = model.simulate_enhanced_real_time_forecast(
-            X_test, y_test, n_steps=n_simulation_steps, verbose=True
-        )
+    )
 
     # 7. Visualize results
     print("\n7. Plotting results...")
@@ -141,6 +136,7 @@ def main():
         
         plt.tight_layout()
         plt.show()
+        
 
 if __name__ == "__main__":
     main()
